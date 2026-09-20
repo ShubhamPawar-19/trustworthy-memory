@@ -1,0 +1,242 @@
+[
+  {
+    "id": "mem-001",
+    "subject": "user",
+    "predicate": "lives_in",
+    "value": "Pune",
+    "sourceMessageId": "msg-001",
+    "createdAt": "2026-01-01T10:00:00.000Z"
+  },
+  {
+    "id": "mem-002",
+    "subject": "user",
+    "predicate": "works_as",
+    "value": "Software Engineer",
+    "sourceMessageId": "msg-002",
+    "createdAt": "2026-01-02T10:00:00.000Z"
+  },
+  {
+    "id": "mem-003",
+    "subject": "user",
+    "predicate": "favorite_food",
+    "value": "Pizza",
+    "sourceMessageId": "msg-003",
+    "createdAt": "2026-01-03T10:00:00.000Z"
+  },
+  {
+    "id": "mem-004",
+    "subject": "user",
+    "predicate": "favorite_color",
+    "value": "Blue",
+    "sourceMessageId": "msg-004",
+    "createdAt": "2026-01-04T10:00:00.000Z"
+  },
+  {
+    "id": "mem-005",
+    "subject": "user",
+    "predicate": "hobby",
+    "value": "Photography",
+    "sourceMessageId": "msg-005",
+    "createdAt": "2026-01-05T10:00:00.000Z"
+  },
+  {
+    "id": "mem-006",
+    "subject": "user",
+    "predicate": "favorite_food",
+    "value": "Biryani",
+    "sourceMessageId": "msg-006",
+    "createdAt": "2026-01-06T10:00:00.000Z"
+  },
+  {
+    "id": "mem-007",
+    "subject": "user",
+    "predicate": "programming_language",
+    "value": "TypeScript",
+    "sourceMessageId": "msg-007",
+    "createdAt": "2026-01-07T10:00:00.000Z"
+  },
+  {
+    "id": "mem-008",
+    "subject": "user",
+    "predicate": "editor",
+    "value": "VS Code",
+    "sourceMessageId": "msg-008",
+    "createdAt": "2026-01-08T10:00:00.000Z"
+  },
+  {
+    "id": "mem-009",
+    "subject": "user",
+    "predicate": "framework",
+    "value": "Next.js",
+    "sourceMessageId": "msg-009",
+    "createdAt": "2026-01-09T10:00:00.000Z"
+  },
+  {
+    "id": "mem-010",
+    "subject": "user",
+    "predicate": "database",
+    "value": "PostgreSQL",
+    "sourceMessageId": "msg-010",
+    "createdAt": "2026-01-10T10:00:00.000Z"
+  },
+  {
+    "id": "mem-011",
+    "subject": "user",
+    "predicate": "cloud",
+    "value": "AWS",
+    "sourceMessageId": "msg-011",
+    "createdAt": "2026-01-11T10:00:00.000Z"
+  },
+  {
+    "id": "mem-012",
+    "subject": "user",
+    "predicate": "music",
+    "value": "Rock",
+    "sourceMessageId": "msg-012",
+    "createdAt": "2026-01-12T10:00:00.000Z"
+  },
+  {
+    "id": "mem-013",
+    "subject": "user",
+    "predicate": "sport",
+    "value": "Cricket",
+    "sourceMessageId": "msg-013",
+    "createdAt": "2026-01-13T10:00:00.000Z"
+  },
+  {
+    "id": "mem-014",
+    "subject": "user",
+    "predicate": "pet",
+    "value": "Dog",
+    "sourceMessageId": "msg-014",
+    "createdAt": "2026-01-14T10:00:00.000Z"
+  },
+  {
+    "id": "mem-015",
+    "subject": "user",
+    "predicate": "education",
+    "value": "Engineering",
+    "sourceMessageId": "msg-015",
+    "createdAt": "2026-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "mem-016",
+    "subject": "user",
+    "predicate": "timezone",
+    "value": "IST",
+    "sourceMessageId": "msg-016",
+    "createdAt": "2026-01-16T10:00:00.000Z"
+  },
+  {
+    "id": "mem-017",
+    "subject": "user",
+    "predicate": "country",
+    "value": "India",
+    "sourceMessageId": "msg-017",
+    "createdAt": "2026-01-17T10:00:00.000Z"
+  },
+  {
+    "id": "mem-018",
+    "subject": "user",
+    "predicate": "language",
+    "value": "English",
+    "sourceMessageId": "msg-018",
+    "createdAt": "2026-01-18T10:00:00.000Z"
+  },
+  {
+    "id": "mem-019",
+    "subject": "user",
+    "predicate": "coffee",
+    "value": "Cold Brew",
+    "sourceMessageId": "msg-019",
+    "createdAt": "2026-01-19T10:00:00.000Z"
+  },
+  {
+    "id": "mem-020",
+    "subject": "user",
+    "predicate": "travel_destination",
+    "value": "Japan",
+    "sourceMessageId": "msg-020",
+    "createdAt": "2026-01-20T10:00:00.000Z"
+  },
+  {
+    "id": "mem-021",
+    "subject": "user",
+    "predicate": "company",
+    "value": "Acme",
+    "sourceMessageId": "msg-021",
+    "createdAt": "2026-01-21T10:00:00.000Z"
+  },
+  {
+    "id": "mem-022",
+    "subject": "user",
+    "predicate": "team",
+    "value": "Platform",
+    "sourceMessageId": "msg-022",
+    "createdAt": "2026-01-22T10:00:00.000Z"
+  },
+  {
+    "id": "mem-023",
+    "subject": "user",
+    "predicate": "device",
+    "value": "Laptop",
+    "sourceMessageId": "msg-023",
+    "createdAt": "2026-01-23T10:00:00.000Z"
+  },
+  {
+    "id": "mem-024",
+    "subject": "user",
+    "predicate": "operating_system",
+    "value": "Windows",
+    "sourceMessageId": "msg-024",
+    "createdAt": "2026-01-24T10:00:00.000Z"
+  },
+  {
+    "id": "mem-025",
+    "subject": "user",
+    "predicate": "learning",
+    "value": "Distributed Systems",
+    "sourceMessageId": "msg-025",
+    "createdAt": "2026-01-25T10:00:00.000Z"
+  },
+  {
+    "id": "mem-026",
+    "subject": "user",
+    "predicate": "goal",
+    "value": "Build a SaaS",
+    "sourceMessageId": "msg-026",
+    "createdAt": "2026-01-26T10:00:00.000Z"
+  },
+  {
+    "id": "mem-027",
+    "subject": "user",
+    "predicate": "side_project",
+    "value": "Workflow Automation",
+    "sourceMessageId": "msg-027",
+    "createdAt": "2026-01-27T10:00:00.000Z"
+  },
+  {
+    "id": "mem-028",
+    "subject": "user",
+    "predicate": "favorite_editor_theme",
+    "value": "Dark",
+    "sourceMessageId": "msg-028",
+    "createdAt": "2026-01-28T10:00:00.000Z"
+  },
+  {
+    "id": "mem-029",
+    "subject": "user",
+    "predicate": "meeting_preference",
+    "value": "Morning",
+    "sourceMessageId": "msg-029",
+    "createdAt": "2026-01-29T10:00:00.000Z"
+  },
+  {
+    "id": "mem-030",
+    "subject": "user",
+    "predicate": "communication",
+    "value": "Email",
+    "sourceMessageId": "msg-030",
+    "createdAt": "2026-01-30T10:00:00.000Z"
+  }
+]

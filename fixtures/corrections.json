@@ -1,0 +1,68 @@
+[
+  {
+    "fromMemoryId": "mem-001",
+    "replacement": {
+      "id": "mem-031",
+      "subject": "user",
+      "predicate": "lives_in",
+      "value": "Mumbai",
+      "sourceMessageId": "msg-031",
+      "createdAt": "2026-02-01T10:00:00.000Z"
+    }
+  },
+  {
+    "fromMemoryId": "mem-031",
+    "replacement": {
+      "id": "mem-032",
+      "subject": "user",
+      "predicate": "lives_in",
+      "value": "Pune",
+      "sourceMessageId": "msg-032",
+      "createdAt": "2026-03-01T10:00:00.000Z"
+    }
+  },
+  {
+    "fromMemoryId": "mem-002",
+    "replacement": {
+      "id": "mem-033",
+      "subject": "user",
+      "predicate": "works_as",
+      "value": "Backend Engineer",
+      "sourceMessageId": "msg-033",
+      "createdAt": "2026-02-02T10:00:00.000Z"
+    }
+  },
+  {
+    "fromMemoryId": "mem-008",
+    "replacement": {
+      "id": "mem-034",
+      "subject": "user",
+      "predicate": "editor",
+      "value": "Neovim",
+      "sourceMessageId": "msg-034",
+      "createdAt": "2026-02-03T10:00:00.000Z"
+    }
+  },
+  {
+    "fromMemoryId": "mem-009",
+    "replacement": {
+      "id": "mem-035",
+      "subject": "user",
+      "predicate": "framework",
+      "value": "Remix",
+      "sourceMessageId": "msg-035",
+      "createdAt": "2026-02-04T10:00:00.000Z"
+    }
+  },
+  {
+    "fromMemoryId": "mem-010",
+    "replacement": {
+      "id": "mem-036",
+      "subject": "user",
+      "predicate": "database",
+      "value": "PostgreSQL",
+      "sourceMessageId": "msg-036",
+      "createdAt": "2026-02-05T10:00:00.000Z"
+    }
+  }
+]

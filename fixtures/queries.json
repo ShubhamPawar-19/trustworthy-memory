@@ -1,0 +1,177 @@
+[
+    {
+        "id": "q-001",
+        "query": "Where does the user live?",
+        "include": [
+            "mem-032"
+        ],
+        "exclude": [
+            "mem-001",
+            "mem-031"
+        ]
+    },
+    {
+        "id": "q-002",
+        "query": "What does the user do for work?",
+        "include": [
+            "mem-033"
+        ],
+        "exclude": [
+            "mem-002"
+        ]
+    },
+    {
+        "id": "q-003",
+        "query": "What is the user's favorite food?",
+        "include": [
+            "mem-003",
+            "mem-006"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-004",
+        "query": "What color does the user like?",
+        "include": [
+            "mem-004"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-005",
+        "query": "What is the user's hobby?",
+        "include": [
+            "mem-005"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-006",
+        "query": "What programming language does the user use?",
+        "include": [
+            "mem-007"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-007",
+        "query": "Which editor does the user use?",
+        "include": [
+            "mem-034"
+        ],
+        "exclude": [
+            "mem-008"
+        ]
+    },
+    {
+        "id": "q-008",
+        "query": "Which framework does the user use?",
+        "include": [
+            "mem-035"
+        ],
+        "exclude": [
+            "mem-009"
+        ]
+    },
+    {
+        "id": "q-009",
+        "query": "Which database does the user use?",
+        "include": [
+            "mem-036"
+        ],
+        "exclude": [
+            "mem-010"
+        ]
+    },
+    {
+        "id": "q-010",
+        "query": "Where does the user live?",
+        "include": [
+            "mem-032"
+        ],
+        "exclude": [
+            "mem-001",
+            "mem-031"
+        ]
+    },
+    {
+        "id": "q-011",
+        "query": "What cloud platform does the user use?",
+        "include": [
+            "mem-011"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-012",
+        "query": "What music does the user like?",
+        "include": [
+            "mem-012"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-013",
+        "query": "What sport does the user like?",
+        "include": [
+            "mem-013"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-014",
+        "query": "Does the user have a pet?",
+        "include": [
+            "mem-014"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-015",
+        "query": "What did the user study?",
+        "include": [
+            "mem-015"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-016",
+        "query": "What timezone is the user in?",
+        "include": [
+            "mem-016"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-017",
+        "query": "Which country is the user from?",
+        "include": [
+            "mem-017"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-018",
+        "query": "What language does the user speak?",
+        "include": [
+            "mem-018"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-019",
+        "query": "Where does the user want to travel?",
+        "include": [
+            "mem-020"
+        ],
+        "exclude": []
+    },
+    {
+        "id": "q-020",
+        "query": "What is the user's goal?",
+        "include": [
+            "mem-026"
+        ],
+        "exclude": []
+    }
+]

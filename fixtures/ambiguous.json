@@ -1,0 +1,28 @@
+[
+  {
+    "id": "amb-001",
+    "currentMemoryId": "mem-021",
+    "candidate": {
+      "id": "mem-037",
+      "subject": "user",
+      "predicate": "company",
+      "value": "Beta",
+      "sourceMessageId": "msg-037",
+      "createdAt": "2026-02-10T10:00:00.000Z"
+    },
+    "reason": "The candidate conflicts with the current company but does not explicitly state that the user left Acme."
+  },
+  {
+    "id": "amb-002",
+    "currentMemoryId": "mem-003",
+    "candidate": {
+      "id": "mem-038",
+      "subject": "user",
+      "predicate": "favorite_food",
+      "value": "Biryani",
+      "sourceMessageId": "msg-038",
+      "createdAt": "2026-02-11T10:00:00.000Z"
+    },
+    "reason": "The candidate conflicts with the existing preference but does not explicitly indicate that Pizza is no longer preferred."
+  }
+]

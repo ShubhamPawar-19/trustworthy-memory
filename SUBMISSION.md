@@ -3,10 +3,10 @@
 ## Candidate
 
 * **Name:** Shubham Pawar
-* **Email:** pawarshubham5959@gmail.com
-* **GitHub:** https://github.com/ShubhamPawar-19/
+* **Email:** [pawarshubham5959@gmail.com](mailto:pawarshubham5959@gmail.com)
+* **GitHub:** https://github.com/ShubhamPawar-19/trustworthy-memory
 * **Selected problem:** Problem 4 — Trustworthy Long-Term Memory
-* **Demo video:** 
+* **Demo video:** (https://youtu.be/60Lz5Khxt7s)
 
 ## Run the project
 
@@ -29,13 +29,13 @@ npm install
 npm run dev
 ```
 
-The demo demonstrates:
+The CLI demo demonstrates:
 
 1. Storing a memory with source provenance.
 2. Retrieving the current relevant memory.
 3. Explicitly correcting `Pune → Mumbai`.
 4. Inspecting the supersession relationship.
-5. Verifying that the outdated memory is no longer returned.
+5. Verifying that the superseded Pune memory is excluded from current retrieval.
 6. Deleting the current memory and verifying that retrieval returns zero results.
 
 ### Run the deterministic verification benchmark
@@ -44,11 +44,11 @@ The demo demonstrates:
 npm run benchmark
 ```
 
-The benchmark uses only version-controlled local fixtures and does not require any paid or external service.
+The benchmark uses only version-controlled local fixtures and deterministic retrieval rules. It does not require any paid or external service.
 
 ## Run the tests
 
-Run the automated tests:
+Run the automated test suite:
 
 ```bash
 npm test
@@ -70,15 +70,32 @@ npm run benchmark
 
 ### AC1 — Store with provenance
 
-A memory has a stable ID, structured subject/predicate/value, source message ID, creation/update timestamps, and lifecycle state.
+Each memory has:
 
-The source message can be inspected through the repository and `MemoryEngine`.
+* a stable ID
+* structured `subject`, `predicate`, and `value`
+* source message ID
+* creation and update timestamps
+* lifecycle status
+* supersession links
+
+Source messages can be inspected independently from the memory record.
 
 **Status: Complete**
 
 ### AC2 — Relevant retrieval
 
-The retrieval engine considers only active memories, applies deterministic predicate/value matching, returns a bounded number of results, and exposes the score and matched fields used for selection.
+Retrieval considers only memories with `active` lifecycle status.
+
+The deterministic retrieval engine:
+
+* matches normalized predicate aliases
+* considers value matches
+* produces an observable score
+* records matched fields
+* returns a human-readable selection reason
+* sorts results deterministically
+* applies a bounded result limit
 
 The default retrieval limit is five results.
 
@@ -86,9 +103,9 @@ The default retrieval limit is five results.
 
 ### AC3 — Explicit correction
 
-An explicit correction can reference the active memory it replaces.
+An explicit correction references the active memory it replaces.
 
-For example:
+Example:
 
 ```text
 Pune
@@ -96,27 +113,46 @@ Pune
 Mumbai
 ```
 
-The original Pune memory remains stored for history, but its lifecycle becomes `superseded`. Mumbai becomes `active` and is the only current memory returned for the location query.
+The original Pune memory remains stored for history, but its lifecycle becomes `superseded`. The Mumbai memory becomes `active` and is returned as the current location.
+
+The implementation also preserves the reverse supersession relationship:
+
+```text
+Pune.supersededById = Mumbai.id
+Mumbai.supersedesId = Pune.id
+```
 
 **Status: Complete**
 
 ### AC4 — Uncertain contradiction
 
-A conflicting candidate without an explicit replacement target does not automatically destroy or supersede an existing memory.
+A conflicting candidate without an explicit replacement target does not automatically supersede the existing memory.
 
-The conservative policy is to preserve both memories and require explicit replacement semantics before supersession.
+The conservative policy is to preserve both memories and require explicit replacement semantics before changing lifecycle state.
+
+This is demonstrated by the ambiguous company and food fixtures.
 
 **Status: Complete**
 
 ### AC5 — Deletion
 
-Deletion is implemented as a soft delete. The memory remains available for historical inspection, but its lifecycle changes to `deleted` and it is excluded from current retrieval.
+Deletion is implemented as a soft delete.
+
+The memory remains available for historical inspection, but its lifecycle changes to `deleted` and it is excluded from current retrieval.
 
 **Status: Complete**
 
 ### AC6 — Stable evaluation
 
-The benchmark uses deterministic local fixtures and deterministic retrieval rules.
+The benchmark uses:
+
+* version-controlled JSON fixtures
+* deterministic reconciliation behaviour
+* deterministic retrieval scoring
+* fixed expected inclusions and exclusions
+* deterministic lifecycle checks
+
+The same command can be rerun without external dependencies.
 
 **Status: Complete**
 
@@ -131,6 +167,8 @@ npm run benchmark
 Observed result:
 
 ```text
+Trustworthy Memory Benchmark
+============================
 Memories: 38
 Queries:  20
 
@@ -139,7 +177,9 @@ Total failures: 0
 Overall: PASS
 ```
 
-The benchmark also performs lifecycle and ambiguity checks:
+The benchmark contains 30 baseline memories, six correction operations, and two ambiguous candidates, resulting in 38 materialized memory records.
+
+It also verifies the Pune → Mumbai → Pune correction chain and the two ambiguous contradiction cases:
 
 ```text
 PASS lifecycle - Original Pune memory is superseded
@@ -152,8 +192,6 @@ PASS ambiguity - Ambiguous company conflict preserves original
 PASS ambiguity - Ambiguous food conflict preserves original
 ```
 
-The benchmark contains 30 baseline memories, six explicit correction operations, and two ambiguous candidates, resulting in 38 materialized memory records while preserving superseded history.
-
 ### Automated test verification
 
 Observed result:
@@ -164,7 +202,7 @@ Observed result:
 
 Type checking also completes successfully:
 
-```text
+```bash
 npm run typecheck
 ```
 
@@ -174,25 +212,27 @@ The primary recovery scenario is explicit correction:
 
 ```text
 I live in Pune.
+
         ↓
+
 I moved to Mumbai.
 ```
 
-The original memory is not deleted. It becomes `superseded`, while the Mumbai memory becomes `active`.
+The original Pune memory is not deleted. It becomes `superseded`, while the Mumbai memory becomes `active`.
 
-A subsequent location retrieval returns Mumbai and does not return Pune as current context.
+A subsequent location retrieval returns Mumbai and excludes Pune from current context.
 
-A reviewer can reproduce this with:
+The reviewer can reproduce the scenario with:
 
 ```bash
 npm run dev
 ```
 
-The CLI demo prints the memory state before and after correction and then demonstrates deletion from retrieval.
+The CLI prints the memory state before and after correction and then demonstrates deletion from retrieval.
 
 ## Architecture and data flow
 
-The implementation separates extraction/candidate creation, storage, reconciliation, and retrieval.
+The implementation deliberately separates structured memory candidates, storage, reconciliation, and retrieval.
 
 ```text
 Source Message
@@ -201,7 +241,7 @@ Source Message
 Structured Memory Candidate
       │
       ▼
-   MemoryEngine
+  MemoryEngine
       │
       ├──────────────► Memory Repository
       │                    │
@@ -233,46 +273,50 @@ Defines the `Memory` and `SourceMessage` contracts and memory creation rules.
 
 Handles explicit supersession and conservative conflict decisions.
 
-An explicit replacement links the new memory to the memory it supersedes and updates the old memory's lifecycle.
+When an explicit replacement is provided, the new memory links to the memory it supersedes and the old memory transitions to `superseded`.
 
 **Retrieval**
 
-Scores active memories using deterministic predicate aliases and value matching. Results contain:
+Scores active memories using deterministic predicate aliases and value matching.
+
+Each result exposes:
 
 * memory
 * score
 * matched fields
 * human-readable selection reason
 
-Results are sorted deterministically and bounded by the requested limit.
+Results are deterministically sorted and bounded by the requested limit.
 
 **Benchmark**
 
-Loads version-controlled fixtures, applies corrections and ambiguous candidates, executes fixed queries, and verifies expected inclusions/exclusions and lifecycle invariants.
+Loads version-controlled fixtures, applies corrections and ambiguous candidates, executes fixed retrieval queries, and verifies expected inclusions, exclusions, and lifecycle invariants.
 
 ## Technology choices
 
 ### TypeScript + Node.js
 
-TypeScript provides strict contracts for the memory lifecycle and repository interfaces while Node.js keeps the prototype lightweight.
+TypeScript provides strict contracts for the memory lifecycle, repository interface, and reconciliation operations while Node.js keeps the prototype lightweight.
 
 ### Vitest
 
-Vitest provides fast deterministic tests with minimal setup.
+Vitest provides a fast deterministic test environment with minimal setup.
 
 ### In-memory storage
 
 An in-memory repository was intentionally chosen instead of PostgreSQL or a vector database.
 
-The challenge evaluates memory correctness, provenance, lifecycle, explainability, and deterministic retrieval rather than persistence infrastructure. Avoiding external infrastructure also makes the benchmark reproducible with a single command.
+The challenge evaluates provenance, lifecycle correctness, reconciliation, explainable retrieval, and deterministic verification rather than persistence infrastructure. Avoiding external infrastructure makes the benchmark reproducible with a single command.
 
 ### Deterministic rule-based retrieval
 
 I deliberately did not introduce embeddings or an LLM.
 
-The retrieval strategy uses normalized predicate aliases and value matching with observable scoring. This makes every benchmark result deterministic and directly testable.
+Retrieval uses normalized predicate aliases and value matching with observable scoring.
 
-A vector or model-based approach could improve semantic recall, but it would introduce additional complexity and make the core lifecycle behaviour harder to isolate.
+This makes benchmark results deterministic and makes it possible to directly inspect why a memory was selected.
+
+A vector or model-based approach could improve semantic recall, but it would introduce additional complexity and make the core lifecycle behaviour harder to isolate and verify.
 
 ## Important decisions
 
@@ -284,7 +328,7 @@ When an explicit `currentMemoryId` is supplied, the engine treats the operation 
 
 Without that explicit replacement relationship, conflicting candidates are preserved.
 
-This prevents an uncertain observation from silently destroying historical information.
+This prevents uncertain observations from silently destroying historical information.
 
 ### 2. Soft deletion
 
@@ -292,11 +336,11 @@ Deletion changes the memory lifecycle to `deleted` rather than physically removi
 
 This preserves provenance and auditability while making the memory unavailable to normal current-context retrieval.
 
-### 3. Retrieval only operates on active memories
+### 3. Lifecycle filtering is enforced before retrieval scoring
 
-Superseded and deleted memories remain inspectable, but retrieval starts from the active-memory set.
+Superseded and deleted memories remain inspectable, but retrieval starts from active memories only.
 
-This makes the distinction between historical information and current conversational context explicit.
+This makes lifecycle state a hard eligibility constraint rather than merely another retrieval signal.
 
 ## Assumptions and limitations
 
@@ -308,54 +352,55 @@ This makes the distinction between historical information and current conversati
 * There is no polished memory-management UI.
 * No model or external API is required.
 * Ambiguous conflicts are preserved rather than automatically resolved.
-* Production handling of highly sensitive memories would require additional policy and access controls.
+* Production handling of highly sensitive memories would require additional policy, access controls, retention rules, and security measures.
 
-These limitations are intentional to keep the implementation focused on the problem's required provenance, lifecycle, retrieval, and deterministic verification behaviour.
+These limitations are intentional. The implementation focuses on the challenge's required provenance, lifecycle, conservative reconciliation, bounded retrieval, explainability, and deterministic verification behaviour.
 
 ## Production and scale
 
-The submitted implementation is deliberately a small in-memory prototype.
+The submitted implementation is intentionally a small in-memory prototype.
 
-For production, I would change the persistence and retrieval layers first while keeping the domain and lifecycle contracts stable.
+For production, I would preserve the domain and lifecycle contracts while replacing the storage and retrieval implementations.
 
 ### Persistence
 
 Replace the in-memory repository with a transactional database implementation.
 
-Memory lifecycle transitions such as:
+Lifecycle transitions such as:
 
 ```text
 active → superseded
 active → deleted
 ```
 
-should be atomic so concurrent updates cannot produce multiple inconsistent current states.
+should be atomic so concurrent updates cannot create inconsistent current states.
 
 ### Retrieval at larger scale
 
-For larger memory collections, I would introduce indexed retrieval and potentially embeddings/hybrid search.
+For larger memory collections, I would introduce indexed retrieval and potentially hybrid lexical + embedding retrieval.
 
-I would keep lifecycle filtering as a hard constraint:
+The lifecycle filter would remain a hard constraint:
 
 ```text
-deleted/superseded → never current retrieval
-active → eligible for retrieval
+deleted/superseded → never eligible for current retrieval
+active             → eligible for retrieval
 ```
 
 Semantic similarity should improve candidate recall, not override lifecycle state.
 
 ### Concurrency and auditability
 
-Production would also need:
+Production would also require:
 
-* optimistic/concurrent update handling
+* optimistic concurrency or equivalent conflict handling
 * stronger audit logs
 * user-level isolation
 * retention policies
 * access controls
 * encryption for sensitive data
 * monitoring of retrieval quality
-* evaluation fixtures for regression testing
+* regression evaluation fixtures
+* operational observability
 
 The submitted prototype does not implement these production concerns.
 
@@ -371,7 +416,12 @@ They were used primarily for:
 * improving test coverage
 * reviewing benchmark and submission structure
 
-The final implementation was manually reviewed and verified by running the automated test suite, TypeScript type checking, deterministic benchmark, and CLI demonstration.
+The final implementation was manually reviewed and verified by running:
+
+* the automated test suite
+* TypeScript type checking
+* the deterministic benchmark
+* the CLI demonstration
 
 No external model is required at runtime, and no AI-generated result is treated as the source of truth for benchmark correctness.
 
@@ -389,29 +439,29 @@ Businesses often need to connect forms, communication channels, AI models, and b
 
 I designed and implemented the application architecture and core workflow execution system, including:
 
-* Next.js/TypeScript application
+* Next.js / TypeScript application
 * React Flow-based workflow builder
-* Prisma/PostgreSQL data layer
+* Prisma / PostgreSQL data layer
 * workflow execution and orchestration
 * Inngest-based background execution
 * AI provider integrations
 * Gmail and WhatsApp integrations
 * webhook and trigger handling
 * execution state and realtime feedback
-* workflow nodes and their executor structure
+* workflow nodes and executor structure
 
 **Engineering complexity**
 
 The system coordinates multiple trigger and action types with asynchronous execution, persisted workflow state, external API integrations, and failure-sensitive execution paths.
 
-One of the more important design decisions was separating trigger nodes from execution/action nodes and giving executors a consistent execution context. This made new integrations easier to add without redesigning the workflow engine.
+One important design decision was separating trigger nodes from execution/action nodes and giving executors a consistent execution context. This made new integrations easier to add without redesigning the workflow engine.
 
 **Evidence**
 
-Repository/project:
+Repository:
 
-https://github.com/ShubhamPawar-19
+https://github.com/ShubhamPawar-19/Nexflow
 
-NexFlow demo:
+Live demo:
 
 https://nexflow-swart.vercel.app/
